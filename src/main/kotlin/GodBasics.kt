@@ -94,7 +94,7 @@ fun main() {
          }")
      }*/
 
-    println("Tester Ragavan".randomDisplayCase())
+    /*println("Tester Ragavan".randomDisplayCase())
 
     performTextTransformation {
         randomDisplayCase()
@@ -102,7 +102,120 @@ fun main() {
 
     performTextTransformation("Rajeevan") {
         randomDisplayCase()
+    }*/
+
+    /* val universityDefCenters = listOf("Delhi", "Mumbai","Puducherry","Chennai")
+     val universitySouthCenters = listOf("Karnataka", "Puducherry","Chennai", "Kerala")
+
+     val allCenters= universityDefCenters union universitySouthCenters
+     val commonCenters = universityDefCenters intersect universitySouthCenters
+     val nonSouthCenters = universityDefCenters subtract universitySouthCenters
+
+     println("All Centers (Union): $allCenters")
+     println("Common Centers (Intersection): $commonCenters")
+     println("Non-South Centers (Subtract): $nonSouthCenters")*/
+    test()
+}
+
+fun test() {
+    /*runBlocking {
+       *//* flow {
+            (1..10).forEach {
+                delay(300)
+                emit(it)
+            }
+        }.collect {
+            println(it)
+        }*//*
+
+        *//*val x = flowOf("A", "B", "C").onEach {
+            delay(1000)
+        }
+
+        x.collectLatest {
+            println(it)
+        }*//*
+
+        *//*val items = listOf("Test","Testing","Tester")
+        val f= items.asFlow().onEach {
+            delay(1000)
+        }
+        f.collectLatest {
+            println(it)
+        }*//*
+
+        *//*val items = listOf("AAA","BBB","CCC")
+        val chn = channelFlow {
+            items.forEach{
+                delay(1000)
+                send(it)
+            }
+        }
+
+        chn.buffer().collectLatest {
+            println(it)
+        }*//*
+    }*/
+
+
+    val studentList = listOf(
+        StudentMarks("Ragavan", PRIMARY_SCHOOL, 92.79),
+        StudentMarks("Rajeevan", PRIMARY_SCHOOL, 65.15),
+        StudentMarks("Rajeevan", PRIMARY_SCHOOL, 52.23),
+        StudentMarks("Arun", HIGH_SCHOOL, 83.21),
+        StudentMarks("Harish", HIGH_SCHOOL, 63.56)
+    )
+
+    println("Name || Grade")
+    studentList.forEach {
+        println(
+            "${it.sName} ||  ${
+                it.getStudentGrade(gradeSel(it.classLevel))
+            }"
+        )
     }
+}
+
+val gradeSel by lazy { { classLevel: Int -> if (classLevel == PRIMARY_SCHOOL) primarySchoolGrade else highSchoolGrade } }
+
+val primarySchoolGrade = GradePredicate {
+    when {
+        it > 90 -> "A+"
+        it > 80 -> "A"
+        it > 65 -> "B"
+        it > 45 -> "C"
+        it > 34 -> "D"
+        else -> "F"
+    }
+}
+
+val highSchoolGrade = GradePredicate {
+    when {
+        it > 80 -> "Very Good"
+        it > 60 -> "Good"
+        it > 34 -> "Fair"
+        else -> "Fail"
+    }
+}
+
+const val PRIMARY_SCHOOL = 1
+const val HIGH_SCHOOL = 2
+
+data class StudentMarks(val sName: String, val classLevel: Int, val sAvg: Double) {
+    fun getStudentGrade(predicate: GradePredicate) = predicate.getGrade((sAvg))
+
+}
+
+fun interface GradePredicate {
+    fun getGrade(avg: Double): String
+}
+
+fun interface dataPractice {
+    fun getMy(d: Int, x: Int)
+}
+
+val x = dataPractice { x: Int, y: Int ->
+
 }
 
 fun performTextTransformation(myText: String = "", trans: String.() -> String) {
